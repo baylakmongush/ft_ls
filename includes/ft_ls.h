@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 19:19:38 by Student           #+#    #+#             */
-/*   Updated: 2020/08/10 21:28:05 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/11 01:22:46 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,20 @@ typedef	struct	s_options
 	int			t;
 }				t_options;
 
+typedef	struct		s_files
+{
+	struct s_files	*next;
+	char			*name;
+}				t_files;
+
 typedef struct	s_dir
 {
-	int a;
+	char		**name_dir;
+	t_files		*files;
 }				t_dir;
 
-
-int				parse(t_options *options, t_dir *dir, int argc, char **argv);
+int				parse_options(t_options *options, int argc, char **argv);
+void			print_usage(char str);
+void			parse_folders(int argc, char **argv, int arg_num_name, t_dir *dir);
 
 #endif
