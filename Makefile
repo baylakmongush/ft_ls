@@ -6,7 +6,7 @@
 #    By: baylak <baylak@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/28 21:46:02 by npetrell          #+#    #+#              #
-#    Updated: 2020/08/10 20:21:10 by baylak           ###   ########.fr        #
+#    Updated: 2020/08/10 21:28:33 by baylak           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBFT = libft
 
 LFLAG = -L $(LIBFT) -lft
 
-SRCS = main.c \
+SRCS = main.c parse.c\
 
 HEADERS = libft/
 

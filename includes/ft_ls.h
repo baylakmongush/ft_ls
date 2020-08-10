@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 19:19:38 by Student           #+#    #+#             */
-/*   Updated: 2020/08/10 20:15:05 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/10 21:28:05 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ typedef struct	s_dir
 	int a;
 }				t_dir;
 
+
+int				parse(t_options *options, t_dir *dir, int argc, char **argv);
 
 #endif
