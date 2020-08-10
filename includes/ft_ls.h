@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Student <Student@student.42.fr>            +#+  +:+       +#+        */
+/*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 19:19:38 by Student           #+#    #+#             */
-/*   Updated: 2020/05/21 19:46:09 by Student          ###   ########.fr       */
+/*   Updated: 2020/08/10 20:15:05 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,20 @@
 # include <stdlib.h>
 # include <dirent.h>
 # include "libft.h"
+
+typedef	struct	s_options
+{
+	int			l;
+	int			R;
+	int			a;
+	int			r;
+	int			t;
+}				t_options;
+
+typedef struct	s_dir
+{
+	int a;
+}				t_dir;
+
 
 #endif

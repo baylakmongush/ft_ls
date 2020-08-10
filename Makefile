@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Student <Student@student.42.fr>            +#+  +:+       +#+         #
+#    By: baylak <baylak@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/28 21:46:02 by npetrell          #+#    #+#              #
-#    Updated: 2020/05/21 19:42:38 by Student          ###   ########.fr        #
+#    Updated: 2020/08/10 20:21:10 by baylak           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 			@make -C $(LIBFT)
-			$(GCC) -I $(INCLUDE) -o $(NAME) $(OBJ) $(LFLAG)
+			@$(GCC) -I $(INCLUDE) -o $(NAME) $(OBJ) $(LFLAG)
 $(DIR)%.o: %.c
 	@mkdir -p $(DIR)
 	@$(GCC) -I $(HEADERS) -I $(INCLUDE) -o $@ -c $<

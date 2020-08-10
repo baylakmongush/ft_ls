@@ -3,79 +3,68 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Student <Student@student.42.fr>            +#+  +:+       +#+        */
+/*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 18:24:31 by Student           #+#    #+#             */
-/*   Updated: 2020/05/21 23:54:23 by Student          ###   ########.fr       */
+/*   Updated: 2020/08/10 21:25:14 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void sort(char **strlist, int strcnt)
+void			init(t_options *options, t_dir *dir)
 {
-	for(int i = 0; i < strcnt - 1; i++)
-		for(int j = i + 1; j < strcnt; j++)
-			if(ft_strcmp(strlist[i], strlist[j]) > 0) {
-				char* tmp = strlist[i];
-				strlist[i] = strlist[j];
-				strlist[j] = tmp;
-			}
+	options->a = 0;
+	options->l = 0;
+	options->R = 0;
+	options->r = 0;
+	options->t = 0;
+	dir->a = 3;
 }
 
-int					main(int argc, char **argv)
+int				parse(t_options *options, t_dir *dir, int argc, char **argv)
 {
-	DIR				*dp;
-	struct dirent	*dirp;
-	struct stat 	mystat;
-	int				size;
-	char			*buf[512];
-	int				i;
-	int				j;
+	size_t		i;
+	size_t		j;
 
-	if (argc == 1)
+	i = -1;
+	dir->a = 0;
+	while (++i < (size_t)argc)
 	{
-		if ((dp = opendir(".")) == NULL)
+		if (argv[i][0] == '-')
 		{
-			perror("ft_ls: dir");
-			exit(0);
-		}
-		i = 0;
-		while ((dirp = readdir(dp)) != NULL)
-		{
-			if (ft_strcmp(dirp->d_name, ".") == 0 || ft_strcmp(dirp->d_name, "..") == 0 || ft_strncmp(dirp->d_name, ".", 1) == 0)
-				continue;
-			buf[i] = (char*)malloc(sizeof(char) * (ft_strlen(dirp->d_name) + 1));
-			buf[i] = ft_strcpy(buf[i], dirp->d_name);
-			i++;
-		}
-		closedir(dp);
-		sort(buf, i);
-		j = 0;
-		while (j < i)
-		{
-			ft_putstr(buf[j]);
-			ft_putstr("\n");
-			free(buf[j]);
-			buf[j] = NULL;
-			j++;
-		}
-		return (0);	
+			j = 0;
+			while (++j < ft_strlen(argv[i]))
+			{
+				if (argv[i][j] == 'a' || argv[i][j] == 'A' || argv[i][j] == 'R' ||
+					argv[i][j] == 'r' || argv[i][j] == 't')
+				{
+					options->a = (argv[i][j] == 'a' || argv[i][j] == 'A') ? 1 : options->a;
+					options->l = (argv[i][j] == 'l' || argv[i][j] == 'L') ? 1 : options->l;
+					options->R = (argv[i][j] == 'R') ? 1 : options->R;
+					options->r = (argv[i][j] == 'r') ? 1 : options->r;
+					options->t = (argv[i][j] == 't') ? 1 : options->t;
+				}
+				else
+				{
+					printf("ls: illegal option -- %c\n", argv[i][j]);
+					printf("usage: ls [-@ALRalrt] [file ...]\n");
+					return (0);
+				}
+			}
+		}	
 	}
-	if ((dp = opendir(argv[1])) == NULL)
-	{
-		perror("ft_ls: dir");
-		exit(0);
-	}
-	while ((dirp = readdir(dp)) != NULL)
-	{
-        stat(dirp->d_name, &mystat);
-		size = mystat.st_size;
-        ft_putnbr(size);
-		ft_putchar(' ');
-        ft_putstr(dirp->d_name);
-		ft_putchar('\n');
-	}
-	closedir(dp);
+	return (1);
+}
+
+int				main(int argc, char **argv)
+{
+	t_options	options;
+	t_dir		dir;
+
+	init(&options, &dir);
+	if (parse(&options, &dir, argc, argv) == 0)
+		return (0);
+	printf("r = %d, a = %d", options.R, options.a);
 	return (0);
 }
