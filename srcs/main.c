@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 18:24:31 by Student           #+#    #+#             */
-/*   Updated: 2020/08/10 21:28:10 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/10 23:36:07 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int				main(int argc, char **argv)
 	t_dir		dir;
 
 	init(&options, &dir);
-	if (parse(&options, &dir, argc, argv) == 0)
-		return (0);
+	parse(&options, &dir, argc, argv);
 	printf("r = %d, a = %d", options.R, options.a);
 	return (0);
 }
