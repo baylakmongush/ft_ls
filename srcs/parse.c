@@ -6,11 +6,11 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/10 21:27:32 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/10 21:27:43 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/10 21:28:59 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls"
+#include "ft_ls.h"
 
 int				parse(t_options *options, t_dir *dir, int argc, char **argv)
 {
