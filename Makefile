@@ -6,19 +6,19 @@
 #    By: baylak <baylak@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/28 21:46:02 by npetrell          #+#    #+#              #
-#    Updated: 2020/08/11 00:40:38 by baylak           ###   ########.fr        #
+#    Updated: 2020/08/11 02:04:08 by baylak           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_ls
 
-GCC = gcc -Wall -Wextra -Werror 
+GCC = gcc -g -Wall -Wextra -Werror 
 
 LIBFT = libft
 
 LFLAG = -L $(LIBFT) -lft
 
-SRCS = main.c parse_options.c parse_folders.c utils.c\
+SRCS = main.c parse_options.c parse_folders.c utils.c flags.c\
 
 HEADERS = libft/
 
