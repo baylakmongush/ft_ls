@@ -6,13 +6,13 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/10 21:27:32 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/11 03:51:21 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/11 13:36:15 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int			parse_options_body(t_options *options, char **argv, int i, size_t j)
+int			parse_options_body(t_dir *dir, char **argv, int i, size_t j)
 {
 	if (argv[i][0] == '-' && argv[i][1])
 	{
@@ -23,13 +23,13 @@ int			parse_options_body(t_options *options, char **argv, int i, size_t j)
 				argv[i][j] == 'r' || argv[i][j] == 't' || argv[i][j] == 'l' ||
 				argv[i][j] == 'L')
 			{
-				options->a = (argv[i][j] == 'a' ||
-								argv[i][j] == 'A') ? 1 : options->a;
-				options->l = (argv[i][j] == 'l' ||
-								argv[i][j] == 'L') ? 1 : options->l;
-				options->R = (argv[i][j] == 'R') ? 1 : options->R;
-				options->r = (argv[i][j] == 'r') ? 1 : options->r;
-				options->t = (argv[i][j] == 't') ? 1 : options->t;
+				dir->options.a = (argv[i][j] == 'a' ||
+								argv[i][j] == 'A') ? 1 : dir->options.a;
+				dir->options.l = (argv[i][j] == 'l' ||
+								argv[i][j] == 'L') ? 1 : dir->options.l;
+				dir->options.R = (argv[i][j] == 'R') ? 1 : dir->options.R;
+				dir->options.r = (argv[i][j] == 'r') ? 1 : dir->options.r;
+				dir->options.t = (argv[i][j] == 't') ? 1 : dir->options.t;
 			}
 			else
 				print_usage(argv[i][j]);
@@ -37,10 +37,15 @@ int			parse_options_body(t_options *options, char **argv, int i, size_t j)
 	}
 	else if (argv[i][0] != '-' || argv[1][0] != '-')
 		return (i);
+	if (ft_strcmp(argv[i], "-") == 0)
+	{
+		printf("./ft_ls: %s: No such file or directory\n", argv[i]);
+		return (++i);
+	}
 	return (0);
 }
 
-int			parse_options(t_options *options, int argc, char **argv)
+int			parse_options(t_dir *dir, int argc, char **argv)
 {
 	size_t	i;
 	size_t	j;
@@ -50,7 +55,7 @@ int			parse_options(t_options *options, int argc, char **argv)
 	j = 0;
 	while (++i < (size_t)argc)
 	{
-		if ((arg_num_name = parse_options_body(options, argv, i, j)) != 0)
+		if ((arg_num_name = parse_options_body(dir, argv, i, j)) != 0)
 			return (arg_num_name);
 	}
 	return (0);

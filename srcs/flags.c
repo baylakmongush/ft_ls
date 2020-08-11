@@ -6,21 +6,24 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 01:35:31 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/11 05:39:22 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/11 14:00:22 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+//https://programmer.help/blogs/implementation-of-ls-a-l-r-r-commands-in-linux.html
+
 #include "ft_ls.h"
 
-void				init_list(t_files **files, char *name)
+t_files				*init_list(t_files *head, char *name)
 {
-	*files = (t_files*)malloc(sizeof(t_files));
-	(*files)->name = name;
-	(*files)->next = NULL;
-	(*files)->prev = NULL;
+	head = (t_files*)malloc(sizeof(t_files));
+	head->name = name;
+	head->next = NULL;
+	head->prev = NULL;
+	return (head);
 }
 
-t_files				*add_elem(t_files *files, char *name)
+t_files		*add_elem(t_files *files, char *name)
 {
 	t_files *temp;
 	t_files	*p;
@@ -33,50 +36,89 @@ t_files				*add_elem(t_files *files, char *name)
 	temp->prev = files;
 	if (p != NULL)
 		p->prev = temp;
-	return (temp);
-}
-
-t_files				*recursively_list(char *str)
-{
-	char			path[1024];
-	DIR				*dirp;
-	struct dirent	*dp;
-	t_files			*files;
-
-	files = NULL;
-	dirp = opendir(str);
-	if (!dirp)
-        return (NULL);
-	while ((dp = readdir(dirp)) != NULL)
-	{
-		if (ft_strcmp(dp->d_name, ".") != 0 && ft_strcmp(dp->d_name, "..") != 0)
-		{
-			files = add_elem(files, dp->d_name);
-			printf("<%s\n>", files->name);
-			ft_strcpy(path, str);
-			ft_strcat(path, "/");
-			ft_strcat(path, dp->d_name);
-			recursively_list(path);
-		}
-	}
-	closedir(dirp);
 	return (files);
 }
 
-void				flags(t_dir *dir, t_options options, int arg_num_name)
+void				insert_t_files(t_files **head_ptr, t_files *files)
+{
+        t_files		*current;
+		
+		current = *head_ptr;
+        files->next = NULL;
+        if (current == NULL)
+		{
+            files->prev = NULL;
+            *head_ptr = files;
+        }
+        else
+		{
+			while (current->next != NULL)
+                current = current->next;
+            current->next = files;
+            files->prev = current;
+        }
+    }
+
+t_files				*init_file_list(t_dir *dir, char *str)
+{
+	t_files			*files;
+	t_files			*head;
+
+	files = NULL;
+	head = files;
+	if 	(dir->options.R == 1)
+    {
+        int len = ft_strlen(dir->PATH);
+        if (len > 0)
+        {
+            if (dir->PATH[len - 1] == '/')
+                dir->PATH[len - 1] ='\0';
+        }
+        if (str[0] == '.' || str[0] == '/')
+            ft_strcat(dir->PATH, str);
+        else
+        {
+            ft_strcat(dir->PATH, "/");
+            ft_strcat(dir->PATH, str);
+        }
+		printf(".%s:\n", dir->PATH);
+    }
+	dir->dirp = opendir(str);
+	if (dir->dirp == NULL)
+		ft_error("dir");
+	while ((dir->dp = readdir(dir->dirp)) != NULL)
+	{
+		insert_t_files(&head, init_list(files, dir->dp->d_name));
+	}
+	closedir(dir->dirp);
+	return (head);
+}
+
+void				flags(t_dir *dir, int arg_num_name)
 {
 	int				i;
 
 	i = -1;
-	if (options.R)
+	if (arg_num_name != 0)
 	{
-		if (arg_num_name != 0)
+		while (++i < dir->count)
 		{
-			init_list(&dir->files, NULL);
-			while (++i < dir->count)
-				recursively_list(dir->name_dir[i]);
+			if (stat(*(dir->name_dir), &dir->mystat) == -1)
+			{
+				printf("./ft_ls: %s: No such file or directory\n", (*dir->name_dir));
+				exit(0);
+			}
+			if(S_ISDIR(dir->mystat.st_mode))
+				dir->files = init_file_list(dir, dir->name_dir[i]);
+			else if (S_ISREG(dir->mystat.st_mode))
+				printf("%s", dir->name_dir[i]);
 		}
-		else
-			recursively_list(".");
+	}
+	else
+		dir->files = init_file_list(dir, ".");
+	while (dir->files)
+	{
+		printf("%s\n", dir->files->name);
+		dir->files = dir->files->next;
 	}
 }
