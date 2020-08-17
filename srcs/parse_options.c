@@ -19,14 +19,11 @@ int			parse_options_body(t_dir *dir, char **argv, int i, size_t j)
 		j = 0;
 		while (++j < ft_strlen(argv[i]))
 		{
-			if (argv[i][j] == 'a' || argv[i][j] == 'A' || argv[i][j] == 'R' ||
-				argv[i][j] == 'r' || argv[i][j] == 't' || argv[i][j] == 'l' ||
-				argv[i][j] == 'L')
+			if (argv[i][j] == 'a' || argv[i][j] == 'R' ||
+				argv[i][j] == 'r' || argv[i][j] == 't' || argv[i][j] == 'l')
 			{
-				dir->options.a = (argv[i][j] == 'a' ||
-								argv[i][j] == 'A') ? 1 : dir->options.a;
-				dir->options.l = (argv[i][j] == 'l' ||
-								argv[i][j] == 'L') ? 1 : dir->options.l;
+				dir->options.a = (argv[i][j] == 'a') ? 1 : dir->options.a;
+				dir->options.l = (argv[i][j] == 'l') ? 1 : dir->options.l;
 				dir->options.R = (argv[i][j] == 'R') ? 1 : dir->options.R;
 				dir->options.r = (argv[i][j] == 'r') ? 1 : dir->options.r;
 				dir->options.t = (argv[i][j] == 't') ? 1 : dir->options.t;

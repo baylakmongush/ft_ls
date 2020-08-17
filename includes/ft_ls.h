@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 19:19:38 by Student           #+#    #+#             */
-/*   Updated: 2020/08/11 13:16:46 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/17 14:55:25 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,13 @@ typedef struct		s_dir
 int					parse_options(t_dir	*dir, int argc, char **argv);
 void				print_usage(char str);
 void				parse_folders(int argc, char **argv, int arg_num_name, t_dir *dir);
-void				flags(t_dir *dir, int arg_num_name);
+void				init_options(t_dir *dir);
+t_files				*init_list_name(t_dir *dir);
 
+
+t_files				*init_list(t_files *head, char *name);
+void				add_elem(t_files **head, char *name);
+void				insert_t_files(t_files **head_ptr, t_files *files);
+void				sorted_list(t_files **head);
+void				reverse_list(t_files **head);
 #endif

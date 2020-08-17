@@ -7,7 +7,7 @@
 			"command": "make",
 			"args": ["re"],
 			"options": {
-            "cwd": "/Users/baylak/ft_ls_poatmeal"
+            "cwd": "${workspaceFolder}"
 			},
 			"problemMatcher": [
 				"$gcc"
