@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 19:19:38 by Student           #+#    #+#             */
-/*   Updated: 2020/08/17 14:55:25 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/17 21:04:07 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef	struct		s_files
 	struct s_files	*next;
 	struct s_files	*prev;
 	char			*name;
+	struct stat 	mystat;
 }					t_files;
 
 typedef struct		s_dir
@@ -46,7 +47,6 @@ typedef struct		s_dir
 	struct dirent	*dp;
 	int				count;
 	int				is_dir;
-	struct stat 	mystat;
 	char			PATH[1024 + 1];
 }					t_dir;
 
@@ -62,4 +62,7 @@ void				add_elem(t_files **head, char *name);
 void				insert_t_files(t_files **head_ptr, t_files *files);
 void				sorted_list(t_files **head);
 void				reverse_list(t_files **head);
+
+void				print_dir(t_files *list, t_dir *dir, int flag);
+void				print_file(t_files *list);
 #endif
