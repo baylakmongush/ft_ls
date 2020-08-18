@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 19:19:38 by Student           #+#    #+#             */
-/*   Updated: 2020/08/17 21:04:07 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/18 20:41:30 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <dirent.h>
+# include <string.h>
+# include <errno.h>
 # include "libft.h"
+# include "limits.h"
 
 typedef	struct		s_options
 {
