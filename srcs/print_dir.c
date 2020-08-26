@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:47:09 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/26 20:55:56 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/27 01:22:50 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*add_valid_path(char *path, char *add)
 	char *ret;
 	char *temp;
 
-	if (ft_strcmp(path, "./"))
+	if (ft_strcmp(path, "./") && ft_strcmp(path, "/") != 0)
 	{
 		temp = ft_strjoin(path, "/");
 		ret = ft_strjoin(temp, add);
@@ -50,20 +50,25 @@ static void	dir_content(t_files *list, t_dir *dir)
 		}
 	}
 	closedir(dir->dirp);
-	quicksort(subfolder);
+	//quicksort(subfolder);
+	subfolder = lst_sort_ascii(subfolder);
+	if (dir->options.t)
+		subfolder = lst_sort_time(subfolder);
 	if (dir->options.r)
 		reverse_list(&subfolder);
-	if (dir->count == 0 || ft_strcmp(subfolder->name, "."))
-		reverse_list(&subfolder);
 	tmp = subfolder;
-	while (subfolder)
+	while (tmp)
 	{
-		printf("%s\n", subfolder->file_name);
-		subfolder = subfolder->next;
+		if (dir->options.l)
+			display_attribute(tmp->name, tmp->file_name);
+		else
+			printf("%s\n", tmp->file_name);
+		tmp = tmp->next;
 	}
 	if (dir->options.R)
 	{
-		subfolder = tmp;
+		if (dir->options.r)
+			reverse_list(&subfolder);
 		while (subfolder)
 		{
 			if (S_ISDIR(subfolder->mystat.st_mode) && ft_strcmp(subfolder->file_name, ".") != 0
