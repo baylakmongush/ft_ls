@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:48:52 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/27 03:33:42 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/27 03:34:47 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void  display_attribute(char* name, char *file_name)  //Print the - l parameter 
 	printf("%s\n", file_name);
 }
 
-void			print_blocks(t_files *file_list)
+void			print_total(t_files *file_list)
 {
 	blkcnt_t	total;
 	int			blksize;
@@ -130,7 +130,7 @@ void	print_file(t_files *list, t_dir *dir)
 {
 	if (dir->options.l)
 	{
-		print_blocks(list);
+		print_total(list);
 		display_attribute(list->name, list->name);
 	}
 	else
