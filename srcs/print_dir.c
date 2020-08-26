@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:47:09 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/26 20:46:13 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/26 20:55:56 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ static void	dir_content(t_files *list, t_dir *dir)
 	quicksort(subfolder);
 	if (dir->options.r)
 		reverse_list(&subfolder);
-	reverse_list(&subfolder);
+	if (dir->count == 0 || ft_strcmp(subfolder->name, "."))
+		reverse_list(&subfolder);
 	tmp = subfolder;
 	while (subfolder)
 	{
