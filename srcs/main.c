@@ -6,11 +6,9 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 18:24:31 by Student           #+#    #+#             */
-/*   Updated: 2020/08/27 02:36:26 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/27 02:58:32 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-//https://programmer.help/blogs/implementation-of-ls-a-l-r-r-commands-in-linux.html
 
 #include "ft_ls.h"
 
@@ -21,6 +19,12 @@ int				ft_ls(t_files *list, t_dir *dir)
 	flag = 0;
 	while (list != NULL)
 	{
+		if (ft_strlen(list->name) > PATH_MAX)
+		{
+			printf("./ft_ls: %s: File name too long\n", list->name);
+			list = list->next;
+			continue ;
+		}
 		lstat(list->name, &list->mystat);
 		if (S_ISDIR(list->mystat.st_mode))
 			print_dir(list, dir, flag);
