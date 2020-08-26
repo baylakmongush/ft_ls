@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:47:09 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/27 02:44:26 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/27 03:31:12 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static void	dir_content(t_files *list, t_dir *dir)
 	if (dir->options.r)
 		reverse_list(&subfolder);
 	tmp = subfolder;
+	if (dir->options.l)
+		print_blocks(tmp);
 	while (tmp)
 	{
 		if (dir->options.l)

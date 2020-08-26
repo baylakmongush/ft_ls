@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 19:19:38 by Student           #+#    #+#             */
-/*   Updated: 2020/08/27 00:43:46 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/27 03:21:25 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ t_files				*lst_sort_ascii(t_files *lst);
 t_files				*lst_sort_time(t_files *lst);
 
 void 				display_attribute(char* name, char *file_name);
+void				print_blocks(t_files *file_list);
 
 #endif
