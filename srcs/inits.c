@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 13:34:28 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/26 22:55:29 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/27 02:16:39 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_files		*init_list_name(t_dir *dir)
 
 	list = NULL;
 	i = -1;
+	if (!dir)
+		return (NULL);
 	if (dir->count == 0)
 	{
 		add_elem(&list, ".");

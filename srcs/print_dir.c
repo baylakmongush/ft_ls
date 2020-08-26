@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:47:09 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/27 01:29:01 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/27 02:27:02 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,10 @@ static void	dir_content(t_files *list, t_dir *dir)
 
 	subfolder = NULL;
 	if (!(dir->dirp = opendir(list->name)))
-	{
-		//printf("ft_ls: %s: %s\n", list->name, strerror(errno));
 		return ;
-	}
 	while ((dir->dp = readdir(dir->dirp)))
 	{
-		if (dir->dp->d_name[0] != '.')
+		if (dir->dp->d_name[0] != '.' || dir->options.a)
 		{
 			add_elem(&subfolder, dir->dp->d_name);
 			subfolder->file_name = ft_strdup(subfolder->name);

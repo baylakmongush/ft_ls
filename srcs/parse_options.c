@@ -6,14 +6,16 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/10 21:27:32 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/11 13:36:15 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/27 02:40:00 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int			parse_options_body(t_dir *dir, char **argv, int i, size_t j)
+int			parse_options_body(t_dir *dir, char **argv, int i, int argc)
 {
+	size_t	j;
+
 	if (argv[i][0] == '-' && argv[i][1])
 	{
 		j = 0;
@@ -34,7 +36,9 @@ int			parse_options_body(t_dir *dir, char **argv, int i, size_t j)
 	}
 	else if (argv[i][0] != '-' || argv[1][0] != '-')
 		return (i);
-	if (ft_strcmp(argv[i], "-") == 0)
+	if (ft_strcmp(argv[i], "-") == 0 && argc == 2)
+		return (-1);
+	else if (ft_strcmp(argv[i], "-") == 0)
 	{
 		printf("./ft_ls: %s: No such file or directory\n", argv[i]);
 		return (++i);
@@ -52,8 +56,10 @@ int			parse_options(t_dir *dir, int argc, char **argv)
 	j = 0;
 	while (++i < (size_t)argc)
 	{
-		if ((arg_num_name = parse_options_body(dir, argv, i, j)) != 0)
+		if ((arg_num_name = parse_options_body(dir, argv, i, argc)) > 0)
 			return (arg_num_name);
+		else if ((arg_num_name = parse_options_body(dir, argv, i, argc)) < 0)
+			return (-1);
 	}
 	return (0);
 }

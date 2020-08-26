@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 18:24:31 by Student           #+#    #+#             */
-/*   Updated: 2020/08/26 22:54:59 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/27 02:36:26 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "ft_ls.h"
 
-void			ft_ls(t_files *list, t_dir *dir)
+int				ft_ls(t_files *list, t_dir *dir)
 {
 	int			flag;
 
@@ -24,11 +24,16 @@ void			ft_ls(t_files *list, t_dir *dir)
 		lstat(list->name, &list->mystat);
 		if (S_ISDIR(list->mystat.st_mode))
 			print_dir(list, dir, flag);
-		else
+		else if (S_ISREG(list->mystat.st_mode))
 			print_file(list, dir);
+		else if (ft_strcmp(list->name, "-"))
+			return (0);
+		else
+			return (0);
 		flag++;
 		list = list->next;
 	}
+	return (1);
 }
 
 int				main(int argc, char **argv)
@@ -38,9 +43,15 @@ int				main(int argc, char **argv)
 
 	init_options(&dir);
 	dir.arg_num_name = parse_options(&dir, argc, argv);
-	if (dir.arg_num_name != 0)
+	if (dir.arg_num_name > 0)
 		parse_folders(argc, argv, dir.arg_num_name, &dir); // free dir.name_dir
+	else if (dir.arg_num_name < 0)
+	{
+		printf("./ft_ls: %s: No such file or directory\n", argv[1]);
+		return (0);
+	}
 	list = init_list_name(&dir);
-	ft_ls(list, &dir);
+	if (!ft_ls(list, &dir))
+		printf("ft_ls: : %s: No such file or directory\n", list->name);
 	return (0);
 }
