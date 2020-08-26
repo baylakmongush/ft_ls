@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 19:19:38 by Student           #+#    #+#             */
-/*   Updated: 2020/08/18 20:41:30 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/26 20:35:59 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef	struct		s_files
 	struct s_files	*next;
 	struct s_files	*prev;
 	char			*name;
+	char			*file_name;
 	struct stat 	mystat;
 }					t_files;
 
@@ -63,9 +64,11 @@ t_files				*init_list_name(t_dir *dir);
 t_files				*init_list(t_files *head, char *name);
 void				add_elem(t_files **head, char *name);
 void				insert_t_files(t_files **head_ptr, t_files *files);
-void				sorted_list(t_files **head);
 void				reverse_list(t_files **head);
+void				sorted_list(t_files **head);
 
 void				print_dir(t_files *list, t_dir *dir, int flag);
 void				print_file(t_files *list);
+void				quicksort(t_files *head);
+
 #endif

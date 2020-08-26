@@ -6,7 +6,7 @@
 #    By: baylak <baylak@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/28 21:46:02 by npetrell          #+#    #+#              #
-#    Updated: 2020/08/17 19:50:14 by baylak           ###   ########.fr        #
+#    Updated: 2020/08/26 19:03:06 by baylak           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ LIBFT = libft
 LFLAG = -L $(LIBFT) -lft
 
 SRCS = main.c parse_options.c parse_folders.c utils.c linkedlistutils.c\
-		inits.c print_dir.c print_file.c
+		inits.c print_dir.c print_file.c quicksort.c
 
 HEADERS = libft/
 

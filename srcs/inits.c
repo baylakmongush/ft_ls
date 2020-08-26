@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 13:34:28 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/17 20:59:07 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/26 19:37:15 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ t_files		*init_list_name(t_dir *dir)
 	}
 	while (++i < dir->count)
 		add_elem(&list, dir->name_dir[i]);
-	sorted_list(&list);
 	if (dir->options.r)
 		reverse_list(&list);
 	return (list);
