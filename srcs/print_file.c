@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:48:52 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/28 17:51:00 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/28 17:53:13 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,14 +119,14 @@ void	print_peop_rights(struct stat buf)
 
 void	print_user_group(struct stat buf)
 {
-	struct passwd* psd;  //Receive the user name of the file owner from this structure
-    struct group* grp;
+	struct passwd* passd;
+    struct group* group;
 
-	psd = getpwuid(buf.st_uid);
-    grp = getgrgid(buf.st_gid);
+	passd = getpwuid(buf.st_uid);
+    group = getgrgid(buf.st_gid);
     printf("%2d", buf.st_nlink);  //Link number
-    printf(" %3s ", psd->pw_name);
-    printf("%3s ", grp->gr_name);
+    printf(" %3s ", passd->pw_name);
+    printf("%3s ", group->gr_name);
 }
 
 void	display_ext_attr(char *path)
