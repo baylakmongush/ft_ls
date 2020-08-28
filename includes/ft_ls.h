@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 19:19:38 by Student           #+#    #+#             */
-/*   Updated: 2020/08/29 00:35:46 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 03:44:48 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ void				display_attr(char* name, char *file_name, mode_t mode);
 void				print_total(t_files *file_list);
 t_files				*sort_time(t_files *path);
 void				ft_clear_list(t_files **head);
+void				dir_content(t_files *list, t_dir *dir);
 
 #endif

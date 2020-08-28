@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:47:09 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/29 00:32:07 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 03:48:53 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void		ft_clear_list(t_files **head)
 	}
 }
 
-char	*add_valid_path(char *path, char *add)
+char		*add_valid_path(char *path, char *add)
 {
-	char *ret;
-	char *temp;
+	char	*ret;
+	char	*temp;
 
 	if (ft_strcmp(path, "./") && ft_strcmp(path, "/") != 0)
 	{
@@ -51,50 +51,17 @@ char	*add_valid_path(char *path, char *add)
 	return (ret);
 }
 
-static void	dir_content(t_files *list, t_dir *dir)
+static void	flag_r_up(t_dir *dir, t_files *subfolder)
 {
-	t_files	*subfolder;
-	t_files	*tmp;
 	t_files	*for_free;
 
-	subfolder = NULL;
-	if (!(dir->dirp = opendir(list->name)))
-		return ;
-	while ((dir->dp = readdir(dir->dirp)))
-	{
-		if (dir->dp->d_name[0] != '.' || dir->options.a)
-		{
-			add_elem(&subfolder, dir->dp->d_name);
-			subfolder->file_name = ft_strdup(subfolder->name);
-			subfolder->name = add_valid_path(list->name, subfolder->name);
-			if (lstat(subfolder->name, &subfolder->mystat) == -1)
-				perror("lstat");
-		}
-	}
-	closedir(dir->dirp);
-	if (dir->options.t)
-		sort_time(subfolder);
-	else
-		quicksort(subfolder);
-	if (dir->options.r)
-		reverse_list(&subfolder);
-	tmp = subfolder;
-	if (dir->options.l)
-		print_total(tmp);
-	while (tmp)
-	{
-		if (dir->options.l)
-			display_attr(tmp->name, tmp->file_name, tmp->mystat.st_mode);
-		else
-			ft_printf("%s\n", tmp->file_name);
-		tmp = tmp->next;
-	}
 	if (dir->options.R)
 	{
 		while (subfolder)
 		{
-			if (S_ISDIR(subfolder->mystat.st_mode) && ft_strcmp(subfolder->file_name, ".") != 0
-												&& ft_strcmp(subfolder->file_name, "..") != 0)
+			if (S_ISDIR(subfolder->mystat.st_mode)
+					&& ft_strcmp(subfolder->file_name, ".") != 0
+					&& ft_strcmp(subfolder->file_name, "..") != 0)
 			{
 				ft_printf("\n%s:\n", subfolder->name);
 				dir_content(subfolder, dir);
@@ -111,6 +78,40 @@ static void	dir_content(t_files *list, t_dir *dir)
 	}
 	else
 		ft_clear_list(&subfolder);
+}
+
+void		dir_content(t_files *list, t_dir *dir)
+{
+	t_files	*subfolder;
+	t_files	*tmp;
+
+	subfolder = NULL;
+	if (!(dir->dirp = opendir(list->name)))
+		return ;
+	while ((dir->dp = readdir(dir->dirp)))
+	{
+		if (dir->dp->d_name[0] != '.' || dir->options.a)
+		{
+			add_elem(&subfolder, dir->dp->d_name);
+			subfolder->file_name = ft_strdup(subfolder->name);
+			subfolder->name = add_valid_path(list->name, subfolder->name);
+			if (lstat(subfolder->name, &subfolder->mystat) == -1)
+				perror("lstat");
+		}
+	}
+	closedir(dir->dirp);
+	dir->options.t ? sort_time(subfolder) : quicksort(subfolder);
+	dir->options.r ? reverse_list(&subfolder) : dir->options.r;
+	tmp = subfolder;
+	dir->options.l ? print_total(tmp) : dir->options.l;
+	while (tmp)
+	{
+		dir->options.l ?
+		display_attr(tmp->name, tmp->file_name, tmp->mystat.st_mode) :
+		ft_printf("%s\n", tmp->file_name);
+		tmp = tmp->next;
+	}
+	flag_r_up(dir, subfolder);
 }
 
 void		print_dir(t_files *list, t_dir *dir, int flag)

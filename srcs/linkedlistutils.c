@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 01:35:31 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/28 08:52:56 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 03:20:02 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,20 @@ void		add_elem(t_files **head, char *name)
 
 void		reverse_list(t_files **head)
 {
-	t_files	*curr; 
-    t_files	*prev;
-    t_files	*next;
+	t_files	*curr;
+	t_files	*prev;
+	t_files	*next;
 
 	curr = *head;
 	prev = NULL;
 	next = NULL;
-    while (curr)
-    {
-        next = curr->next;
-        curr->next = prev;
-        curr->prev = next;
-        prev = curr;
-        curr = next;
-    }
-    *head = prev;
+	while (curr)
+	{
+		next = curr->next;
+		curr->next = prev;
+		curr->prev = next;
+		prev = curr;
+		curr = next;
+	}
+	*head = prev;
 }

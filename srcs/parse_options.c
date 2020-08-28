@@ -6,11 +6,20 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/10 21:27:32 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/28 18:35:24 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 03:28:47 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+void		insert_options(t_dir *dir, char flag)
+{
+	dir->options.a = (flag == 'a') ? 1 : dir->options.a;
+	dir->options.l = (flag == 'l') ? 1 : dir->options.l;
+	dir->options.R = (flag == 'R') ? 1 : dir->options.R;
+	dir->options.r = (flag == 'r') ? 1 : dir->options.r;
+	dir->options.t = (flag == 't') ? 1 : dir->options.t;
+}
 
 int			parse_options_body(t_dir *dir, char **argv, int i, int argc)
 {
@@ -23,13 +32,7 @@ int			parse_options_body(t_dir *dir, char **argv, int i, int argc)
 		{
 			if (argv[i][j] == 'a' || argv[i][j] == 'R' ||
 				argv[i][j] == 'r' || argv[i][j] == 't' || argv[i][j] == 'l')
-			{
-				dir->options.a = (argv[i][j] == 'a') ? 1 : dir->options.a;
-				dir->options.l = (argv[i][j] == 'l') ? 1 : dir->options.l;
-				dir->options.R = (argv[i][j] == 'R') ? 1 : dir->options.R;
-				dir->options.r = (argv[i][j] == 'r') ? 1 : dir->options.r;
-				dir->options.t = (argv[i][j] == 't') ? 1 : dir->options.t;
-			}
+				insert_options(dir, argv[i][j]);
 			else
 				print_usage(argv[i][j]);
 		}

@@ -6,11 +6,23 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 18:24:31 by Student           #+#    #+#             */
-/*   Updated: 2020/08/29 00:36:22 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 03:29:40 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+static void		print_dir_or_file(t_files *list, t_dir *dir, int flag)
+{
+	if (S_ISDIR(list->mystat.st_mode))
+		print_dir(list, dir, flag);
+	else if (S_ISREG(list->mystat.st_mode))
+		print_file(list, dir);
+	else if (ft_strcmp(list->name, "-"))
+		exit(0);
+	else
+		exit(0);
+}
 
 int				ft_ls(t_files *list, t_dir *dir)
 {
@@ -31,14 +43,7 @@ int				ft_ls(t_files *list, t_dir *dir)
 			list = list->next;
 			continue ;
 		}
-		if (S_ISDIR(list->mystat.st_mode))
-			print_dir(list, dir, flag);
-		else if (S_ISREG(list->mystat.st_mode))
-			print_file(list, dir);
-		else if (ft_strcmp(list->name, "-"))
-			return (0);
-		else
-			return (0);
+		print_dir_or_file(list, dir, flag);
 		flag++;
 		list = list->next;
 	}
