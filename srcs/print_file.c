@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:48:52 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/28 18:35:19 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/28 23:54:38 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void  display_attr(char* name, char *file_name, mode_t mode)
     if (lstat(name, &buf) == -1)
 	{
 		perror("lstat");
-		exit(EXIT_FAILURE);
+		return ;
 	}
 	print_own_rights(buf);
     print_group_per(buf);

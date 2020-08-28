@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:47:09 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/28 18:40:22 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/28 23:53:12 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ static void	dir_content(t_files *list, t_dir *dir)
 			subfolder->file_name = ft_strdup(subfolder->name);
 			subfolder->name = add_valid_path(list->name, subfolder->name);
 			if (lstat(subfolder->name, &subfolder->mystat) == -1)
-			{
 				perror("lstat");
-				exit(EXIT_FAILURE);
-			}
 		}
 	}
 	closedir(dir->dirp);

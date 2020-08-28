@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 18:24:31 by Student           #+#    #+#             */
-/*   Updated: 2020/08/28 18:35:28 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/28 23:29:57 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int				ft_ls(t_files *list, t_dir *dir)
 		if (lstat(list->name, &list->mystat) == -1)
 		{
 			perror("lstat");
-			exit(EXIT_FAILURE);
+			list = list->next;
+			continue ;
 		}
 		if (S_ISDIR(list->mystat.st_mode))
 			print_dir(list, dir, flag);
