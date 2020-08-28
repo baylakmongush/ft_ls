@@ -6,11 +6,34 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:47:09 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/28 23:53:12 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 00:32:07 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+void		ft_clear_list(t_files **head)
+{
+	t_files *curr;
+	t_files	*temp;
+
+	if (*head != NULL)
+	{
+		curr = (*head)->next;
+		while (curr != NULL && curr != *head)
+		{
+			temp = curr;
+			curr = curr->next;
+			free(temp->file_name);
+			temp->file_name = NULL;
+			free(temp->name);
+			temp->name = NULL;
+			free(temp);
+		}
+		free(*head);
+		*head = NULL;
+	}
+}
 
 char	*add_valid_path(char *path, char *add)
 {
@@ -32,6 +55,7 @@ static void	dir_content(t_files *list, t_dir *dir)
 {
 	t_files	*subfolder;
 	t_files	*tmp;
+	t_files	*for_free;
 
 	subfolder = NULL;
 	if (!(dir->dirp = opendir(list->name)))
@@ -75,9 +99,18 @@ static void	dir_content(t_files *list, t_dir *dir)
 				ft_printf("\n%s:\n", subfolder->name);
 				dir_content(subfolder, dir);
 			}
-			subfolder = subfolder->next;
+			for_free = subfolder->next;
+			free(subfolder->file_name);
+			subfolder->file_name = NULL;
+			free(subfolder->name);
+			subfolder->name = NULL;
+			free(subfolder);
+			subfolder = NULL;
+			subfolder = for_free;
 		}
 	}
+	else
+		ft_clear_list(&subfolder);
 }
 
 void		print_dir(t_files *list, t_dir *dir, int flag)

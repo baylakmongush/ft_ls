@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 18:24:31 by Student           #+#    #+#             */
-/*   Updated: 2020/08/28 23:29:57 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 00:36:22 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ int				main(int argc, char **argv)
 	list = init_list_name(&dir);
 	if (!ft_ls(list, &dir))
 		ft_printf("ft_ls: : %s: No such file or directory\n", list->name);
+	ft_clear_list(&list);
 	return (0);
 }
