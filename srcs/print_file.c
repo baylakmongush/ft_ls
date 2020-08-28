@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:48:52 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/28 16:22:41 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/28 17:51:00 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void		print_time(time_t mtime)
 	pointer = str_time + 4;
 	next_point = str_time + 10;
 	*next_point = '\0';
-	printf(" %s", pointer);
+	printf(" %-2s", pointer);
 	pointer = (mtime + 15778800 < ct) ?
 	str_time + 20 : str_time + 11;
 	next_point = (mtime + 15778800 < ct) ?
@@ -115,7 +115,6 @@ void	print_peop_rights(struct stat buf)
         printf("x");
     else
         printf("-");
-    printf("  ");
 }
 
 void	print_user_group(struct stat buf)
@@ -125,20 +124,49 @@ void	print_user_group(struct stat buf)
 
 	psd = getpwuid(buf.st_uid);
     grp = getgrgid(buf.st_gid);
-    printf("%4d ", buf.st_nlink);  //Link number
-    printf("%-3s ", psd->pw_name);
-    printf("%-3s ", grp->gr_name);
+    printf("%2d", buf.st_nlink);  //Link number
+    printf(" %3s ", psd->pw_name);
+    printf("%3s ", grp->gr_name);
+}
+
+void	display_ext_attr(char *path)
+{
+	acl_t acl = NULL;
+    acl_entry_t dummy;
+    ssize_t xattr = 0;
+    char chr;
+
+    acl = acl_get_link_np(path, ACL_TYPE_EXTENDED);
+    if (acl && acl_get_entry(acl, ACL_FIRST_ENTRY, &dummy) == -1) {
+        acl_free(acl);
+        acl = NULL;
+    }
+    xattr = listxattr(path, NULL, 0, XATTR_NOFOLLOW);
+    if (xattr < 0)
+        xattr = 0;
+    if (xattr > 0)
+        chr = '@';
+    else if (acl != NULL)
+        chr = '+';
+    else
+        chr = ' ';
+    printf("%c ", chr);
 }
 
 void  display_attr(char* name, char *file_name, mode_t mode)
 {
     struct stat buf;
-    lstat(name, &buf);
+    if (lstat(name, &buf) == -1)
+	{
+		perror("lstat");
+		exit(EXIT_FAILURE);
+	}
 	print_own_rights(buf);
     print_group_per(buf);
     print_peop_rights(buf);
+	display_ext_attr(name);
     print_user_group(buf);
-	printf("%6lld",buf.st_size);
+	printf("%4lld",buf.st_size);
     print_time(buf.st_mtime);
 	name_print(name, file_name, mode);
 }

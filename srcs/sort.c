@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:24:05 by poatmeal          #+#    #+#             */
-/*   Updated: 2020/08/28 16:53:37 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/28 17:15:31 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,16 @@ t_files			*sort_time(t_files *path)
 		tmp = path->next;
 		while (tmp)
 		{
-			lstat(path->name, &pstat);
-			lstat(tmp->name, &tstat);
+			if (lstat(path->name, &pstat) == -1)
+			{
+				perror("lstat");
+				exit(EXIT_FAILURE);
+			}
+			if (lstat(tmp->name, &tstat) == -1)
+			{
+				perror("lstat");
+				exit(EXIT_FAILURE);
+			}
 			if (cmp_times(pstat.st_mtimespec.tv_sec, tstat.st_mtimespec.tv_sec,
 					path->file_name, tmp->file_name) < 0)
 				swap(path, tmp);
