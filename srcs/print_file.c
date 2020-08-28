@@ -6,77 +6,92 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:48:52 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/27 11:22:16 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/28 16:22:41 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void		print_time(time_t mod_time)
+static void		name_print(char *path, char *file_name, mode_t mode)
 {
-	char	*str;
-	char	*start;
-	char	*end;
+	char		buf[1024];
+	ssize_t		len;
+
+	if ((mode & S_IFMT) == S_IFLNK)
+	{
+		ft_bzero(buf, 1024);
+		if ((len = readlink(path, buf, sizeof(buf))) < 0)
+		{
+			perror("readlink");
+			exit(EXIT_FAILURE);
+		}
+		printf(" %s -> %s\n", file_name, buf);
+	}
+	else
+		printf(" %s\n", file_name);
+}
+
+static void		print_time(time_t mtime)
+{
+	char	*str_time;
+	char	*pointer;
+	char	*next_point;
 	time_t	ct;
 
 	ct = time(NULL);
-	if ((str = ctime(&mod_time)) == NULL)
+	if ((str_time = ctime(&mtime)) == NULL)
 		return ;
-	start = str + 4;
-	end = str + 10;
-	*end = 0;
-	printf(" %s ",start);
-	start = (mod_time > ct || mod_time + SIX_MONTHS < ct) ?
-	str + 20 : str + 11;
-	end = (mod_time > ct || mod_time + SIX_MONTHS < ct) ?
-	str + 24 : (end = str + 16);
-	if (mod_time > ct || mod_time + SIX_MONTHS < ct)
+	pointer = str_time + 4;
+	next_point = str_time + 10;
+	*next_point = '\0';
+	printf(" %s", pointer);
+	pointer = (mtime + 15778800 < ct) ?
+	str_time + 20 : str_time + 11;
+	next_point = (mtime + 15778800 < ct) ?
+	str_time + 24 : (next_point = str_time + 16);
+	if (mtime + 15778800 < ct)
 		ft_putchar(' ');
-	*end = 0;
-	printf("%s ",start);
+	*next_point = '\0';
+	printf(" %s",pointer);
 }
 
-void  display_attribute(char* name, char *file_name)  //Print the - l parameter in the corresponding format
+void	print_own_rights(struct stat buf)
 {
-    struct stat buf;
-    //char buff_time[32];
-    struct passwd* psd;  //Receive the user name of the file owner from this structure
-    struct group* grp;   //Get group name
-    lstat(name, &buf);
-    if(S_ISLNK(buf.st_mode))
+	if(S_ISLNK(buf.st_mode))
         printf("l");
-    else if(S_ISREG(buf.st_mode))
+    else if (S_ISREG(buf.st_mode))
         printf("-");
-    else if(S_ISDIR(buf.st_mode))
+    else if (S_ISDIR(buf.st_mode))
         printf("d");
-    else if(S_ISCHR(buf.st_mode))
+    else if (S_ISCHR(buf.st_mode))
         printf("c");
-    else if(S_ISBLK(buf.st_mode))
+    else if (S_ISBLK(buf.st_mode))
         printf("b");
-    else if(S_ISFIFO(buf.st_mode))
+    else if (S_ISFIFO(buf.st_mode))
         printf("f");
-    else if(S_ISSOCK(buf.st_mode))
+    else if (S_ISSOCK(buf.st_mode))
         printf("s");
-    //Get Print File Owner Rights
-    if (buf.st_mode & S_IRUSR)
-        printf("r");
+	if (buf.st_mode & S_IRUSR)
+        printf ("r");
     else
-        printf("-");
+        printf ("-");
     if(buf.st_mode&S_IWUSR)
-        printf("w");
+        printf ("w");
     else
-        printf("-");
-    if(buf.st_mode&S_IXUSR)
-        printf("x");
+        printf ("-");
+    if(buf.st_mode & S_IXUSR)
+        printf ("x");
     else
-        printf("-");
+        printf ("-");
+}
 
-    //All group permissions
-    if(buf.st_mode&S_IRGRP)
+void	print_group_per(struct stat buf)
+{
+	if (buf.st_mode & S_IRGRP)
         printf("r");
     else
         printf("-");
-    if(buf.st_mode&S_IWGRP)
+    if(buf.st_mode & S_IWGRP)
         printf("w");
     else
         printf("-");
@@ -84,44 +99,62 @@ void  display_attribute(char* name, char *file_name)  //Print the - l parameter 
         printf("x");
     else
         printf("-");
+}
 
-    //Other people's rights
-    if(buf.st_mode&S_IROTH)
+void	print_peop_rights(struct stat buf)
+{
+	if(buf.st_mode & S_IROTH)
         printf("r");
     else
         printf("-");
-    if(buf.st_mode&S_IWOTH)
+    if(buf.st_mode & S_IWOTH)
         printf("w");
     else
         printf("-");
-    if(buf.st_mode&S_IXOTH)
+    if(buf.st_mode & S_IXOTH)
         printf("x");
     else
         printf("-");
     printf("  ");
-    //Get the user name and group name of the file owner based on uid and gid
-    psd = getpwuid(buf.st_uid);
-    grp = getgrgid(buf.st_gid);
-    printf("%4d ",buf.st_nlink);  //Link number
-    printf("%-8s ",psd->pw_name);
-    printf("%-8s ",grp->gr_name);
-	printf("%6lld",buf.st_size);
-    print_time(buf.st_mtime);
-	printf("%s\n", file_name);
 }
 
-void			print_total(t_files *file_list)
+void	print_user_group(struct stat buf)
+{
+	struct passwd* psd;  //Receive the user name of the file owner from this structure
+    struct group* grp;
+
+	psd = getpwuid(buf.st_uid);
+    grp = getgrgid(buf.st_gid);
+    printf("%4d ", buf.st_nlink);  //Link number
+    printf("%-3s ", psd->pw_name);
+    printf("%-3s ", grp->gr_name);
+}
+
+void  display_attr(char* name, char *file_name, mode_t mode)
+{
+    struct stat buf;
+    lstat(name, &buf);
+	print_own_rights(buf);
+    print_group_per(buf);
+    print_peop_rights(buf);
+    print_user_group(buf);
+	printf("%6lld",buf.st_size);
+    print_time(buf.st_mtime);
+	name_print(name, file_name, mode);
+}
+
+void			print_total(t_files *file)
 {
 	blkcnt_t	total;
-	int			blksize;
+	int			size;
 
 	total = 0;
-	if (file_list)
-		blksize = file_list->mystat.st_blksize / 1024;
-	while (file_list)
+	if (file)
+		size = file->mystat.st_blksize / 1024;
+	while (file)
 	{
-		total += file_list->mystat.st_blocks;
-		file_list = file_list->next;
+		total += file->mystat.st_blocks;
+		file = file->next;
 	}
 	printf("total %lld\n", total);
 }
@@ -129,7 +162,7 @@ void			print_total(t_files *file_list)
 void	print_file(t_files *list, t_dir *dir)
 {
 	if (dir->options.l)
-		display_attribute(list->name, list->name);
+		display_attr(list->name, list->name, list->mystat.st_mode);
 	else
 		printf("%s\n", list->name);
 }

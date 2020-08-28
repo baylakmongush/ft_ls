@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:47:09 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/28 14:36:57 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/28 16:21:04 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ static void	dir_content(t_files *list, t_dir *dir)
 		}
 	}
 	closedir(dir->dirp);
-	//quicksort(subfolder);
+	quicksort(subfolder);
 	if (dir->options.t)
 		sort_time(subfolder, dir->options.r);
-	else 
-		subfolder = lst_sort_ascii(subfolder);
+	else
+		quicksort(subfolder);
 	if (dir->options.r)
 		reverse_list(&subfolder);
 	tmp = subfolder;
@@ -60,19 +60,13 @@ static void	dir_content(t_files *list, t_dir *dir)
 	while (tmp)
 	{
 		if (dir->options.l)
-			display_attribute(tmp->name, tmp->file_name);
+			display_attr(tmp->name, tmp->file_name, tmp->mystat.st_mode);
 		else
 			printf("%s\n", tmp->file_name);
 		tmp = tmp->next;
 	}
 	if (dir->options.R)
 	{
-	  	 /* \\if (dir->options.t)
-			sort_time(subfolder, dir->options.r);
-		else
-			subfolder = lst_sort_ascii(subfolder);
-		if (dir->options.r)
-			reverse_list(&subfolder); */
 		while (subfolder)
 		{
 			if (S_ISDIR(subfolder->mystat.st_mode) && ft_strcmp(subfolder->file_name, ".") != 0
