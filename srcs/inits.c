@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 13:34:28 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/28 14:59:32 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/28 16:54:05 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_files		*init_list_name(t_dir *dir)
 	while (++i < dir->count)
 		add_elem(&list, dir->name_dir[i]);
 	if (dir->options.t)
-		list = sort_time(list, dir->options.r);
+		list = sort_time(list);
 	else
 		quicksort(list);
 	if (dir->options.r)

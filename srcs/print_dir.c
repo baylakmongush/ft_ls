@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:47:09 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/28 16:21:04 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/28 17:08:53 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ static void	dir_content(t_files *list, t_dir *dir)
 		}
 	}
 	closedir(dir->dirp);
-	quicksort(subfolder);
 	if (dir->options.t)
-		sort_time(subfolder, dir->options.r);
+		sort_time(subfolder);
 	else
 		quicksort(subfolder);
 	if (dir->options.r)
