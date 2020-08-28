@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:24:05 by poatmeal          #+#    #+#             */
-/*   Updated: 2020/08/27 01:01:29 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/28 14:46:30 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,28 +89,56 @@ t_files	*lst_sort_ascii(t_files *lst)
 	return (lst);
 }
 
-t_files	*lst_sort_time(t_files *lst)
+void		swap(t_files *a, t_files *b)
 {
-	if (!lst)
-		return (NULL);
-	if (lst->next && (lst->mystat.st_mtime < lst->next->mystat.st_mtime))
-		lst = ft_swap(lst, lst->next);
-	else if (lst->next && lst->mystat.st_mtime == lst->next->mystat.st_mtime)
-		if (lst->next && (lst->ntime < lst->next->ntime))
-			lst = ft_swap(lst, lst->next);
-	lst->next = lst_sort_time(lst->next);
-	if (lst->next && (lst->mystat.st_mtime < lst->next->mystat.st_mtime))
+	char *file_name;
+	char *name;
+	struct stat tmp;
+
+	name = NULL;
+	file_name = NULL;
+	file_name = a->file_name;
+	name = a->name;
+	tmp = a->mystat;
+	a->file_name = b->file_name;
+	a->name = b->name;
+	a->mystat = b->mystat;
+	b->name = name;
+	b->file_name = file_name;
+	b->mystat = tmp;
+}
+
+int			cmp_times(long t1, long t2, char *name1, char *name2)
+{
+	return (t1 == t2 ? ft_strcmp(name1, name2) : t1 - t2);
+}
+
+t_files			*sort_time(t_files *path, int reverse)
+{
+	t_files		*begin;
+	t_files		*tmp;
+	struct stat tstat;
+	struct stat pstat;
+
+	reverse = 1;
+	tmp = NULL;
+	begin = path;
+	while (path)
 	{
-		lst = ft_swap(lst, lst->next);
-		lst->next = lst_sort_time(lst->next);
-	}
-	else if (lst->next && lst->mystat.st_mtime == lst->next->mystat.st_mtime)
-	{
-		if (lst->next && (lst->file_name > lst->next->file_name))
+		tmp = path->next;
+		while (tmp)
 		{
-			lst = ft_swap(lst, lst->next);
-			lst->next = lst_sort_time(lst->next);
+			lstat(path->name, &pstat);
+			lstat(tmp->name, &tstat);
+			if (cmp_times(pstat.st_mtimespec.tv_sec, tstat.st_mtimespec.tv_sec, path->file_name,
+						tmp->file_name) < 0)
+				swap(path, tmp);
+			else if (cmp_times(pstat.st_mtimespec.tv_sec, tstat.st_mtimespec.tv_sec, path->file_name,
+						tmp->file_name) == 0)
+				lst_sort_ascii(path);
+			tmp = tmp->next;
 		}
+		path = path->next;
 	}
-	return (lst);
+	return (begin);
 }

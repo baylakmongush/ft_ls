@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 01:35:31 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/26 20:47:35 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/28 08:52:56 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void		add_elem(t_files **head, char *name)
 	temp->next = (*head);
 	temp->prev = NULL;
 	temp->name = name;
+	temp->file_name = name;
 	if (*head != NULL)
 		(*head)->prev = temp;
 	(*head) = temp;
