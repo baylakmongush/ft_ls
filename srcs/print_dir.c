@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:47:09 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/28 17:15:01 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/28 18:40:22 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	dir_content(t_files *list, t_dir *dir)
 		if (dir->options.l)
 			display_attr(tmp->name, tmp->file_name, tmp->mystat.st_mode);
 		else
-			printf("%s\n", tmp->file_name);
+			ft_printf("%s\n", tmp->file_name);
 		tmp = tmp->next;
 	}
 	if (dir->options.R)
@@ -75,7 +75,7 @@ static void	dir_content(t_files *list, t_dir *dir)
 			if (S_ISDIR(subfolder->mystat.st_mode) && ft_strcmp(subfolder->file_name, ".") != 0
 												&& ft_strcmp(subfolder->file_name, "..") != 0)
 			{
-				printf("\n%s:\n", subfolder->name);
+				ft_printf("\n%s:\n", subfolder->name);
 				dir_content(subfolder, dir);
 			}
 			subfolder = subfolder->next;
@@ -87,8 +87,8 @@ void		print_dir(t_files *list, t_dir *dir, int flag)
 {
 	if (dir->count >= 2)
 	{
-		flag > 0 ? printf("\n") : flag;
-		printf("%s: \n", list->name);
+		flag > 0 ? ft_printf("\n") : flag;
+		ft_printf("%s: \n", list->name);
 	}
 	dir_content(list, dir);
 }

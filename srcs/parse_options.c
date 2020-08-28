@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/10 21:27:32 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/27 02:40:00 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/28 18:35:24 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			parse_options_body(t_dir *dir, char **argv, int i, int argc)
 		return (-1);
 	else if (ft_strcmp(argv[i], "-") == 0)
 	{
-		printf("./ft_ls: %s: No such file or directory\n", argv[i]);
+		ft_printf("./ft_ls: %s: No such file or directory\n", argv[i]);
 		return (++i);
 	}
 	return (0);

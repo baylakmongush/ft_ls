@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:24:05 by poatmeal          #+#    #+#             */
-/*   Updated: 2020/08/28 17:15:31 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/28 18:50:15 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ t_files			*sort_time(t_files *path)
 				perror("lstat");
 				exit(EXIT_FAILURE);
 			}
-			if (cmp_times(pstat.st_mtimespec.tv_sec, tstat.st_mtimespec.tv_sec,
+			if (cmp_times(pstat.st_mtime, tstat.st_mtime,
 					path->file_name, tmp->file_name) < 0)
 				swap(path, tmp);
 			tmp = tmp->next;

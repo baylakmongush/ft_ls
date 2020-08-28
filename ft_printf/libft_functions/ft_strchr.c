@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aagrivan <aagrivan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/11 00:01:45 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/28 18:35:15 by baylak           ###   ########.fr       */
+/*   Created: 2019/09/10 17:07:13 by aagrivan          #+#    #+#             */
+/*   Updated: 2020/08/09 13:29:07 by aagrivan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "ft_printf.h"
 
-void	print_usage(char str)
+char	*ft_strchr(const char *s, int c)
 {
-	ft_printf("ls: illegal option -- %c\n", str);
-	ft_printf("usage: ls [-alRrt] [file ...]\n");
-	exit(1);
+	while (*s != (char)c)
+	{
+		if (!*s++)
+			return (NULL);
+	}
+	return ((char *)s);
 }

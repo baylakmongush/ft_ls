@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:48:52 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/28 17:53:13 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/28 18:35:19 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static void		name_print(char *path, char *file_name, mode_t mode)
 			perror("readlink");
 			exit(EXIT_FAILURE);
 		}
-		printf(" %s -> %s\n", file_name, buf);
+		ft_printf(" %s -> %s\n", file_name, buf);
 	}
 	else
-		printf(" %s\n", file_name);
+		ft_printf(" %s\n", file_name);
 }
 
 static void		print_time(time_t mtime)
@@ -44,7 +44,7 @@ static void		print_time(time_t mtime)
 	pointer = str_time + 4;
 	next_point = str_time + 10;
 	*next_point = '\0';
-	printf(" %-2s", pointer);
+	ft_printf(" %-2s", pointer);
 	pointer = (mtime + 15778800 < ct) ?
 	str_time + 20 : str_time + 11;
 	next_point = (mtime + 15778800 < ct) ?
@@ -52,69 +52,69 @@ static void		print_time(time_t mtime)
 	if (mtime + 15778800 < ct)
 		ft_putchar(' ');
 	*next_point = '\0';
-	printf(" %s",pointer);
+	ft_printf(" %s",pointer);
 }
 
 void	print_own_rights(struct stat buf)
 {
 	if(S_ISLNK(buf.st_mode))
-        printf("l");
+        ft_printf("l");
     else if (S_ISREG(buf.st_mode))
-        printf("-");
+        ft_printf("-");
     else if (S_ISDIR(buf.st_mode))
-        printf("d");
+        ft_printf("d");
     else if (S_ISCHR(buf.st_mode))
-        printf("c");
+        ft_printf("c");
     else if (S_ISBLK(buf.st_mode))
-        printf("b");
+        ft_printf("b");
     else if (S_ISFIFO(buf.st_mode))
-        printf("f");
+        ft_printf("f");
     else if (S_ISSOCK(buf.st_mode))
-        printf("s");
+        ft_printf("s");
 	if (buf.st_mode & S_IRUSR)
-        printf ("r");
+        ft_printf ("r");
     else
-        printf ("-");
+        ft_printf ("-");
     if(buf.st_mode&S_IWUSR)
-        printf ("w");
+        ft_printf ("w");
     else
-        printf ("-");
+        ft_printf ("-");
     if(buf.st_mode & S_IXUSR)
-        printf ("x");
+        ft_printf ("x");
     else
-        printf ("-");
+        ft_printf ("-");
 }
 
 void	print_group_per(struct stat buf)
 {
 	if (buf.st_mode & S_IRGRP)
-        printf("r");
+        ft_printf("r");
     else
-        printf("-");
+        ft_printf("-");
     if(buf.st_mode & S_IWGRP)
-        printf("w");
+        ft_printf("w");
     else
-        printf("-");
+        ft_printf("-");
     if(buf.st_mode&S_IXGRP)
-        printf("x");
+        ft_printf("x");
     else
-        printf("-");
+        ft_printf("-");
 }
 
 void	print_peop_rights(struct stat buf)
 {
 	if(buf.st_mode & S_IROTH)
-        printf("r");
+        ft_printf("r");
     else
-        printf("-");
+        ft_printf("-");
     if(buf.st_mode & S_IWOTH)
-        printf("w");
+        ft_printf("w");
     else
-        printf("-");
+        ft_printf("-");
     if(buf.st_mode & S_IXOTH)
-        printf("x");
+        ft_printf("x");
     else
-        printf("-");
+        ft_printf("-");
 }
 
 void	print_user_group(struct stat buf)
@@ -124,9 +124,9 @@ void	print_user_group(struct stat buf)
 
 	passd = getpwuid(buf.st_uid);
     group = getgrgid(buf.st_gid);
-    printf("%2d", buf.st_nlink);  //Link number
-    printf(" %3s ", passd->pw_name);
-    printf("%3s ", group->gr_name);
+    ft_printf("%2d", buf.st_nlink);  //Link number
+    ft_printf(" %3s ", passd->pw_name);
+    ft_printf("%3s ", group->gr_name);
 }
 
 void	display_ext_attr(char *path)
@@ -150,7 +150,7 @@ void	display_ext_attr(char *path)
         chr = '+';
     else
         chr = ' ';
-    printf("%c ", chr);
+    ft_printf("%c ", chr);
 }
 
 void  display_attr(char* name, char *file_name, mode_t mode)
@@ -166,7 +166,7 @@ void  display_attr(char* name, char *file_name, mode_t mode)
     print_peop_rights(buf);
 	display_ext_attr(name);
     print_user_group(buf);
-	printf("%4lld",buf.st_size);
+	ft_printf("%4lld",buf.st_size);
     print_time(buf.st_mtime);
 	name_print(name, file_name, mode);
 }
@@ -184,7 +184,7 @@ void			print_total(t_files *file)
 		total += file->mystat.st_blocks;
 		file = file->next;
 	}
-	printf("total %lld\n", total);
+	ft_printf("total %lld\n", total);
 }
 
 void	print_file(t_files *list, t_dir *dir)
@@ -192,5 +192,5 @@ void	print_file(t_files *list, t_dir *dir)
 	if (dir->options.l)
 		display_attr(list->name, list->name, list->mystat.st_mode);
 	else
-		printf("%s\n", list->name);
+		ft_printf("%s\n", list->name);
 }

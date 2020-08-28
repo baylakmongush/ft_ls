@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_putendl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aagrivan <aagrivan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/11 00:01:45 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/28 18:35:15 by baylak           ###   ########.fr       */
+/*   Created: 2019/09/12 15:57:09 by aagrivan          #+#    #+#             */
+/*   Updated: 2020/08/07 21:16:04 by aagrivan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "ft_printf.h"
 
-void	print_usage(char str)
+void		ft_putendl(char const *s)
 {
-	ft_printf("ls: illegal option -- %c\n", str);
-	ft_printf("usage: ls [-alRrt] [file ...]\n");
-	exit(1);
+	int		i;
+
+	i = 0;
+	if (s)
+	{
+		while (s[i] != '\0')
+		{
+			ft_putchar(s[i]);
+			i++;
+		}
+		ft_putchar('\n');
+	}
 }

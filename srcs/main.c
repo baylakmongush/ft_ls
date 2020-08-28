@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 18:24:31 by Student           #+#    #+#             */
-/*   Updated: 2020/08/28 17:13:30 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/28 18:35:28 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				ft_ls(t_files *list, t_dir *dir)
 	{
 		if (ft_strlen(list->name) > PATH_MAX)
 		{
-			printf("./ft_ls: %s: File name too long\n", list->name);
+			ft_printf("./ft_ls: %s: File name too long\n", list->name);
 			list = list->next;
 			continue ;
 		}
@@ -55,11 +55,11 @@ int				main(int argc, char **argv)
 		parse_folders(argc, argv, dir.arg_num_name, &dir); // free dir.name_dir
 	else if (dir.arg_num_name < 0)
 	{
-		printf("./ft_ls: %s: No such file or directory\n", argv[1]);
+		ft_printf("./ft_ls: %s: No such file or directory\n", argv[1]);
 		return (0);
 	}
 	list = init_list_name(&dir);
 	if (!ft_ls(list, &dir))
-		printf("ft_ls: : %s: No such file or directory\n", list->name);
+		ft_printf("ft_ls: : %s: No such file or directory\n", list->name);
 	return (0);
 }

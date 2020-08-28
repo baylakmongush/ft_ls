@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aagrivan <aagrivan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/11 00:01:45 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/28 18:35:15 by baylak           ###   ########.fr       */
+/*   Created: 2019/09/13 15:54:57 by aagrivan          #+#    #+#             */
+/*   Updated: 2020/08/07 21:16:23 by aagrivan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "ft_printf.h"
 
-void	print_usage(char str)
+size_t		ft_strlen(const char *s)
 {
-	ft_printf("ls: illegal option -- %c\n", str);
-	ft_printf("usage: ls [-alRrt] [file ...]\n");
-	exit(1);
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }

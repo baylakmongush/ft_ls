@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_putunbr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aagrivan <aagrivan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/11 00:01:45 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/28 18:35:15 by baylak           ###   ########.fr       */
+/*   Created: 2019/09/12 16:03:54 by aagrivan          #+#    #+#             */
+/*   Updated: 2020/08/09 16:22:56 by aagrivan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "ft_printf.h"
 
-void	print_usage(char str)
+void		ft_putunbr(unsigned long long n)
 {
-	ft_printf("ls: illegal option -- %c\n", str);
-	ft_printf("usage: ls [-alRrt] [file ...]\n");
-	exit(1);
+	if (n >= 10)
+	{
+		ft_putunbr(n / 10);
+		ft_putchar((n % 10) + '0');
+	}
+	else
+		ft_putchar(n + '0');
 }

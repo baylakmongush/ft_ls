@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aagrivan <aagrivan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/11 00:01:45 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/28 18:35:15 by baylak           ###   ########.fr       */
+/*   Created: 2019/09/16 14:48:01 by poatmeal          #+#    #+#             */
+/*   Updated: 2020/08/08 15:18:43 by aagrivan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "ft_printf.h"
 
-void	print_usage(char str)
+void	*ft_memalloc(size_t size)
 {
-	ft_printf("ls: illegal option -- %c\n", str);
-	ft_printf("usage: ls [-alRrt] [file ...]\n");
-	exit(1);
+	void	*new;
+
+	new = (void *)malloc(sizeof(void) * size);
+	if (new == NULL)
+		return (NULL);
+	ft_memset(new, 0, size);
+	return (new);
 }
