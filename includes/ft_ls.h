@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 19:19:38 by Student           #+#    #+#             */
-/*   Updated: 2020/08/29 12:38:56 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 13:02:21 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void				print_usage(char str);
 void				parse_folders(int argc, char **argv, int arg_num_name, t_dir *dir);
 void				init_options(t_dir *dir);
 t_files				*init_list_name(t_dir *dir);
+void				swap(t_files *a, t_files *b);
 
 
 t_files				*init_list(t_files *head, char *name);

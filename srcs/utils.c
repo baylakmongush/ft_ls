@@ -6,11 +6,30 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 00:01:45 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/29 12:11:20 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 13:09:18 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+void			swap(t_files *a, t_files *b)
+{
+	char		*file_name;
+	char		*name;
+	struct stat tmp;
+
+	name = NULL;
+	file_name = NULL;
+	file_name = a->file_name;
+	name = a->name;
+	tmp = a->mystat;
+	a->file_name = b->file_name;
+	a->name = b->name;
+	a->mystat = b->mystat;
+	b->name = name;
+	b->file_name = file_name;
+	b->mystat = tmp;
+}
 
 void			print_total(t_files *file)
 {

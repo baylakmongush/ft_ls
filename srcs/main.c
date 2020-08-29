@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 18:24:31 by Student           #+#    #+#             */
-/*   Updated: 2020/08/29 03:29:40 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 13:19:36 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int				ft_ls(t_files *list, t_dir *dir)
 		}
 		if (lstat(list->name, &list->mystat) == -1)
 		{
-			perror("lstat");
+			ft_printf("./ft_ls: %s: No such file or directory\n", list->file_name);
 			list = list->next;
 			continue ;
 		}
@@ -58,7 +58,7 @@ int				main(int argc, char **argv)
 	init_options(&dir);
 	dir.arg_num_name = parse_options(&dir, argc, argv);
 	if (dir.arg_num_name > 0)
-		parse_folders(argc, argv, dir.arg_num_name, &dir); // free dir.name_dir
+		parse_folders(argc, argv, dir.arg_num_name, &dir);
 	else if (dir.arg_num_name < 0)
 	{
 		ft_printf("./ft_ls: %s: No such file or directory\n", argv[1]);
@@ -67,6 +67,6 @@ int				main(int argc, char **argv)
 	list = init_list_name(&dir);
 	if (!ft_ls(list, &dir))
 		ft_printf("ft_ls: : %s: No such file or directory\n", list->name);
-	ft_clear_list(&list);
+	//ft_clear_list(&list);
 	return (0);
 }

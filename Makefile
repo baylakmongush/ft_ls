@@ -6,7 +6,7 @@
 #    By: baylak <baylak@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/28 21:46:02 by npetrell          #+#    #+#              #
-#    Updated: 2020/08/29 12:57:09 by baylak           ###   ########.fr        #
+#    Updated: 2020/08/29 13:01:08 by baylak           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ LFLAG = -L $(LIBFT) -lft
 
 PRINT_FLAG = -L $(FT_PRINTF) -lftprintf
 
-SRCS = main.c parse_options.c parse_folders.c utils.c linkedlistutils.c\
-		inits.c print_dir.c print_file.c sort.c clear.c \
+SRCS = main.c parse_options.c parse_folders.c utils.c linkedlistutils.c \
+		inits.c print_dir.c print_file.c sort_by_ascii.c sort_by_time.c clear.c \
 		print_attrib/display_attr.c \
 		print_attrib/link_print.c  print_attrib/display_extend_attr.c \
 		print_attrib/print_rights.c  print_attrib/print_time.c \
