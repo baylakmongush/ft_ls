@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_file.c                                       :+:      :+:    :+:   */
+/*   link_print.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/17 19:48:52 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/29 12:09:15 by baylak           ###   ########.fr       */
+/*   Created: 2020/08/29 12:04:21 by baylak            #+#    #+#             */
+/*   Updated: 2020/08/29 12:22:49 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	print_file(t_files *list, t_dir *dir)
+void			link_print(char *path, char *file_name, mode_t mode)
 {
-	if (dir->options.l)
-		display_attr(list->name, list->name, list->mystat.st_mode);
+	char		buf[1024];
+	ssize_t		len;
+
+	if ((mode & S_IFMT) == S_IFLNK)
+	{
+		ft_bzero(buf, 1024);
+		if ((len = readlink(path, buf, sizeof(buf))) < 0)
+		{
+			perror("readlink");
+			exit(EXIT_FAILURE);
+		}
+		ft_printf(" %s -> %s\n", file_name, buf);
+	}
 	else
-		ft_printf("%s\n", list->name);
+		ft_printf(" %s\n", file_name);
 }

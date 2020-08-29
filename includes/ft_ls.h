@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 19:19:38 by Student           #+#    #+#             */
-/*   Updated: 2020/08/29 03:44:48 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 12:38:56 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,25 @@ t_files				*init_list(t_files *head, char *name);
 void				add_elem(t_files **head, char *name);
 void				insert_t_files(t_files **head_ptr, t_files *files);
 void				reverse_list(t_files **head);
-void				sorted_list(t_files **head);
 
+t_files				*sort_time(t_files *path);
+void				quicksort(t_files *head);
+
+void				print_total(t_files *file);
+void				print_file_type(struct stat buf);
+void				print_own_rights(struct stat buf);
+void				print_group_per(struct stat buf);
+void				print_peop_rights(struct stat buf);
+void				display_ext_attr(char *path);
+void				print_user_group(struct stat buf);
+char				*add_valid_path(char *path, char *add);
 void				print_dir(t_files *list, t_dir *dir, int flag);
 void				print_file(t_files *list, t_dir *dir);
-void				quicksort(t_files *head);
 void				display_attr(char* name, char *file_name, mode_t mode);
-void				print_total(t_files *file_list);
-t_files				*sort_time(t_files *path);
-void				ft_clear_list(t_files **head);
 void				dir_content(t_files *list, t_dir *dir);
+void				print_time(time_t mtime);
+void				link_print(char *path, char *file_name, mode_t mode);
+
+void				ft_clear_list(t_files **head);
 
 #endif

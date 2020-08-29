@@ -1,21 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_file.c                                       :+:      :+:    :+:   */
+/*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/17 19:48:52 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/29 12:09:15 by baylak           ###   ########.fr       */
+/*   Created: 2020/08/29 11:37:59 by baylak            #+#    #+#             */
+/*   Updated: 2020/08/29 11:38:22 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	print_file(t_files *list, t_dir *dir)
+void		ft_clear_list(t_files **head)
 {
-	if (dir->options.l)
-		display_attr(list->name, list->name, list->mystat.st_mode);
-	else
-		ft_printf("%s\n", list->name);
+	t_files *curr;
+	t_files	*temp;
+
+	if (*head != NULL)
+	{
+		curr = (*head)->next;
+		while (curr != NULL && curr != *head)
+		{
+			temp = curr;
+			curr = curr->next;
+			free(temp->file_name);
+			temp->file_name = NULL;
+			free(temp->name);
+			temp->name = NULL;
+			free(temp);
+		}
+		free(*head);
+		*head = NULL;
+	}
 }
