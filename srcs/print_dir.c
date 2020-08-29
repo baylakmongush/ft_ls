@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:47:09 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/29 13:18:56 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 22:37:24 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	flag_r_up(t_dir *dir, t_files *subfolder)
 {
 	t_files	*for_free;
 
-	if (dir->options.R)
+	if (dir->options.up_r)
 	{
 		while (subfolder)
 		{
@@ -43,11 +43,14 @@ static void	flag_r_up(t_dir *dir, t_files *subfolder)
 
 static void	read_dir_content(t_files **subfolder, t_files *list, t_dir *dir)
 {
+	char	*tmp;
+	
 	if (dir->dp->d_name[0] != '.' || dir->options.a)
 	{
-		add_elem(subfolder, dir->dp->d_name);
-		(*subfolder)->file_name = ft_strdup((*subfolder)->name);
-		(*subfolder)->name = add_valid_path(list->name, (*subfolder)->name);
+		*subfolder = add_elem(*subfolder, dir->dp->d_name);
+		tmp = add_valid_path(list->name, (*subfolder)->name);
+		free((*subfolder)->name);
+		(*subfolder)->name = tmp;
 		if (lstat((*subfolder)->name, &(*subfolder)->mystat) == -1)
 			perror("lstat");
 	}

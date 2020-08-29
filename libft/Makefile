@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Student <Student@student.42.fr>            +#+  +:+       +#+         #
+#    By: baylak <baylak@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/20 19:48:38 by npetrell          #+#    #+#              #
-#    Updated: 2020/05/21 19:43:30 by Student          ###   ########.fr        #
+#    Updated: 2020/08/29 22:27:56 by baylak           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c \
 	  ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c \
 	  ft_lstmap.c \
 	  ft_abs.c ft_sqrt.c ft_count_word.c ft_strnlen.c is_power_of_2.c \
-	  ft_error.c \
+	  ft_error.c ft_strjoinfree.c \
 
 OFILES = $(SRC:%.c=%.o)
 

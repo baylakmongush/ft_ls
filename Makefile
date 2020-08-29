@@ -12,7 +12,7 @@
 
 NAME = ft_ls
 
-GCC = gcc -o2 -Wall -Wextra -Werror 
+GCC = gcc -O2 -Wall -Wextra -Werror 
 
 LIBFT = libft
 

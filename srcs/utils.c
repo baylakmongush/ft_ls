@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 00:01:45 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/29 13:09:18 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 22:37:33 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char			*add_valid_path(char *path, char *add)
 	char		*ret;
 	char		*temp;
 
+	if (!*path || !*add)
+		return (NULL);
 	if (ft_strcmp(path, "./") && ft_strcmp(path, "/") != 0)
 	{
 		temp = ft_strjoin(path, "/");
@@ -66,6 +68,6 @@ char			*add_valid_path(char *path, char *add)
 		ft_strdel(&temp);
 	}
 	else
-		ret = ft_strjoin(path, add);
+		ret = ft_strjoinfree_both(path, add);
 	return (ret);
 }

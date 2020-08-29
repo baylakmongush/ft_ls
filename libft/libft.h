@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Student <Student@student.42.fr>            +#+  +:+       +#+        */
+/*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 19:48:03 by npetrell          #+#    #+#             */
-/*   Updated: 2020/05/21 19:48:20 by Student          ###   ########.fr       */
+/*   Updated: 2020/08/29 22:27:38 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int					ft_strequ(char const *s1, char const *s2);
 void				ft_striter(char *s, void (*f)(char *));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoinfree_both(char *s1, char *s2);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 size_t				ft_strlen(const char *s);
 char				*ft_strmap(char const *s, char (*f)(char));

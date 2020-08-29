@@ -3,27 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   linkedlistutils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
+/*   By: poatmeal <poatmeal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 01:35:31 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/29 03:20:02 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 16:03:14 by poatmeal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		add_elem(t_files **head, char *name)
+t_files		*add_elem(t_files *head, char *name)
 {
 	t_files	*temp;
 
 	temp = (t_files*)malloc(sizeof(t_files));
-	temp->next = (*head);
+	temp->next = head;
 	temp->prev = NULL;
-	temp->name = name;
-	temp->file_name = name;
-	if (*head != NULL)
-		(*head)->prev = temp;
-	(*head) = temp;
+	temp->name = ft_strdup(name);
+	temp->file_name = ft_strdup(name);
+	if (head != NULL)
+		head->prev = temp;
+	head = temp;
+	return (head);
 }
 
 void		reverse_list(t_files **head)

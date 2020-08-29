@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 18:24:31 by Student           #+#    #+#             */
-/*   Updated: 2020/08/29 13:19:36 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 22:38:03 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,16 @@ static void		print_dir_or_file(t_files *list, t_dir *dir, int flag)
 		print_dir(list, dir, flag);
 	else if (S_ISREG(list->mystat.st_mode))
 		print_file(list, dir);
-	else if (ft_strcmp(list->name, "-"))
+	else if (ft_strcmp(list->name, "-") && dir->count == 1)
+	{
+		//ft_clear_list(&list);
 		exit(0);
+	}
 	else
+	{
+		//ft_clear_list(&list);
 		exit(0);
+	}
 }
 
 int				ft_ls(t_files *list, t_dir *dir)
@@ -33,13 +39,15 @@ int				ft_ls(t_files *list, t_dir *dir)
 	{
 		if (ft_strlen(list->name) > PATH_MAX)
 		{
-			ft_printf("./ft_ls: %s: File name too long\n", list->name);
+			ft_printf("./ft_ls: %s: File name too long\n",
+								list->name);
 			list = list->next;
 			continue ;
 		}
 		if (lstat(list->name, &list->mystat) == -1)
 		{
-			ft_printf("./ft_ls: %s: No such file or directory\n", list->file_name);
+			ft_printf("./ft_ls: %s: No such file or directory\n",
+								list->file_name);
 			list = list->next;
 			continue ;
 		}
@@ -57,6 +65,7 @@ int				main(int argc, char **argv)
 
 	init_options(&dir);
 	dir.arg_num_name = parse_options(&dir, argc, argv);
+	ft_printf("%d", dir.arg_num_name);
 	if (dir.arg_num_name > 0)
 		parse_folders(argc, argv, dir.arg_num_name, &dir);
 	else if (dir.arg_num_name < 0)
@@ -65,8 +74,7 @@ int				main(int argc, char **argv)
 		return (0);
 	}
 	list = init_list_name(&dir);
-	if (!ft_ls(list, &dir))
-		ft_printf("ft_ls: : %s: No such file or directory\n", list->name);
-	//ft_clear_list(&list);
+	ft_ls(list, &dir);
+	ft_clear_list(&list);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
+/*   By: poatmeal <poatmeal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 11:37:59 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/29 13:08:52 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 14:29:19 by poatmeal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,17 @@ void		ft_clear_list(t_files **head)
 		free(*head);
 		*head = NULL;
 	}
+}
+
+void	ft_clear_dir(char **dir)
+{
+	int		i;
+
+	i = 0;
+	if (!dir)
+		return ;
+	while (dir && *dir)
+		free(*dir++);
+	free(dir);
+	dir = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 13:34:28 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/28 18:35:30 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 20:54:01 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		init_options(t_dir *dir)
 {
 	dir->options.a = 0;
 	dir->options.l = 0;
-	dir->options.R = 0;
+	dir->options.up_r = 0;
 	dir->options.r = 0;
 	dir->options.t = 0;
 }
@@ -25,6 +25,7 @@ t_files		*init_list_name(t_dir *dir)
 {
 	t_files	*list;
 	int		i;
+	char	*tmp;
 
 	list = NULL;
 	i = -1;
@@ -32,11 +33,18 @@ t_files		*init_list_name(t_dir *dir)
 		return (NULL);
 	if (dir->count == 0)
 	{
-		add_elem(&list, ".");
+		list = add_elem(list, ".");
 		return (list);
 	}
 	while (++i < dir->count)
-		add_elem(&list, dir->name_dir[i]);
+	{
+		tmp = dir->name_dir[i];
+		list = add_elem(list, tmp);
+		free(tmp);
+		tmp = NULL;
+	}
+	free(dir->name_dir);
+	dir->name_dir = NULL;
 	if (dir->options.t)
 		list = sort_time(list);
 	else

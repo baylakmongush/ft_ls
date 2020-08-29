@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
+/*   By: poatmeal <poatmeal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 19:19:38 by Student           #+#    #+#             */
-/*   Updated: 2020/08/29 13:02:21 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 15:59:38 by poatmeal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 typedef	struct		s_options
 {
 	int				l;
-	int				R;
+	int				up_r;
 	int				a;
 	int				r;
 	int				t;
@@ -45,7 +45,7 @@ typedef	struct		s_files
 	struct s_files	*prev;
 	char			*name;
 	char			*file_name;
-	struct stat 	mystat;
+	struct stat		mystat;
 }					t_files;
 
 typedef struct		s_dir
@@ -58,19 +58,18 @@ typedef struct		s_dir
 	struct dirent	*dp;
 	int				count;
 	int				is_dir;
-	char			PATH[1024 + 1];
 }					t_dir;
 
 int					parse_options(t_dir	*dir, int argc, char **argv);
 void				print_usage(char str);
-void				parse_folders(int argc, char **argv, int arg_num_name, t_dir *dir);
+void				parse_folders(int argc, char **argv,
+									int arg_num_name, t_dir *dir);
 void				init_options(t_dir *dir);
 t_files				*init_list_name(t_dir *dir);
 void				swap(t_files *a, t_files *b);
 
-
 t_files				*init_list(t_files *head, char *name);
-void				add_elem(t_files **head, char *name);
+t_files				*add_elem(t_files *head, char *name);
 void				insert_t_files(t_files **head_ptr, t_files *files);
 void				reverse_list(t_files **head);
 
@@ -87,11 +86,12 @@ void				print_user_group(struct stat buf);
 char				*add_valid_path(char *path, char *add);
 void				print_dir(t_files *list, t_dir *dir, int flag);
 void				print_file(t_files *list, t_dir *dir);
-void				display_attr(char* name, char *file_name, mode_t mode);
+void				display_attr(char *name, char *file_name, mode_t mode);
 void				dir_content(t_files *list, t_dir *dir);
 void				print_time(time_t mtime);
 void				link_print(char *path, char *file_name, mode_t mode);
 
 void				ft_clear_list(t_files **head);
+void				ft_clear_dir(char **dir);
 
 #endif
