@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: poatmeal <poatmeal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/29 11:37:59 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/29 14:29:19 by poatmeal         ###   ########.fr       */
+/*   Updated: 2020/08/30 13:14:26 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		ft_clear_list(t_files **head)
+void			ft_clear_list(t_files **head)
 {
-	t_files *curr;
-	t_files	*temp;
+	t_files		*curr;
+	t_files		*temp;
 
 	if (*head != NULL)
 	{
@@ -35,9 +35,9 @@ void		ft_clear_list(t_files **head)
 	}
 }
 
-void	ft_clear_dir(char **dir)
+void			ft_clear_dir(char **dir)
 {
-	int		i;
+	int			i;
 
 	i = 0;
 	if (!dir)

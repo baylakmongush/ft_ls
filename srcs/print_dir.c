@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 19:47:09 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/29 23:15:32 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/30 13:09:51 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	flag_r_up(t_dir *dir, t_files *subfolder)
 static void	read_dir_content(t_files **subfolder, t_files *list, t_dir *dir)
 {
 	char	*tmp;
-	
+
 	if (dir->dp->d_name[0] != '.' || dir->options.a)
 	{
 		*subfolder = add_elem(*subfolder, dir->dp->d_name);

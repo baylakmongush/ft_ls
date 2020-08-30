@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/10 21:27:32 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/29 21:08:50 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/30 13:12:19 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,9 @@ int			parse_options_body(t_dir *dir, char **argv, int i, int argc)
 	{
 		j = 0;
 		while (++j < ft_strlen(argv[i]))
-		{
-			if (argv[i][j] == 'a' || argv[i][j] == 'R' ||
-				argv[i][j] == 'r' || argv[i][j] == 't' || argv[i][j] == 'l')
-				insert_options(dir, argv[i][j]);
-			else
-				print_usage(argv[i][j]);
-		}
+			(argv[i][j] == 'a' || argv[i][j] == 'R' ||
+				argv[i][j] == 'r' || argv[i][j] == 't' || argv[i][j] == 'l') ?
+				insert_options(dir, argv[i][j]) : print_usage(argv[i][j]);
 	}
 	else if (argv[i][0] != '-' || argv[1][0] != '-')
 		return (i);
