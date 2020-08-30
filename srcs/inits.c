@@ -6,7 +6,7 @@
 /*   By: baylak <baylak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 13:34:28 by baylak            #+#    #+#             */
-/*   Updated: 2020/08/29 23:10:21 by baylak           ###   ########.fr       */
+/*   Updated: 2020/08/29 23:28:19 by baylak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,5 @@ t_files		*init_list_name(t_dir *dir)
 	}
 	free(dir->name_dir);
 	dir->name_dir = NULL;
-	if (dir->options.t)
-		list = sort_time(list);
-	else
-		quicksort(list);
-	if (dir->options.r)
-		reverse_list(&list);
 	return (list);
 }
